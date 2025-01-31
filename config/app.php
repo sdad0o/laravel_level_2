@@ -168,6 +168,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\TestServiceProvider::class, // will go to the router first so you have to put it befor RouteServiceProvider
     ])->toArray(),
 
     /*
