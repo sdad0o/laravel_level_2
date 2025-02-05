@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Product;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -49,5 +50,10 @@ class RouteServiceProvider extends ServiceProvider
             //     ->group(base_path('routes/web.php'));
         });
         // Route::pattern('id','[0-9]+'); example for global route constraint every parameter named id will get this constraint
+        
+        // to avoid the 404 erorr for the manual slug
+        Route::bind('product', function (string $value) {
+            return Product::where('name', str_replace('-',' ', $value))->firstOrFail();
+        });
     }
 }

@@ -22,22 +22,27 @@ Route::get('/', HomeController::class)->name('home');
 // Route::get('/', HomeController::class)->middleware(['throttle:watch_limiter'])->name('home');
 
 // Example for the route constraints
-Route::get('/users/{name}',HomeController::class)->where('name','[a-z]+'); //it take the latters from a-z in small latter
-Route::get('/users/{id}/{name}', HomeController::class)->where([['name'=>'[a-z]+'],['id'=>'[0-9]+']]);
-Route::get('/users/{id}/{name}', HomeController::class)->whereNumber('id')->whereAlpha('name');
+// Route::get('/users/{name}',HomeController::class)->where('name','[a-z]+'); //it take the latters from a-z in small latter
+// Route::get('/users/{id}/{name}', HomeController::class)->where([['name'=>'[a-z]+'],['id'=>'[0-9]+']]);
+// Route::get('/users/{id}/{name}', HomeController::class)->whereNumber('id')->whereAlpha('name');
+
 Route::prefix('dashboard')->group(function () {
 
     // ==================================== dashboard main page10. 
     Route::view('/', 'dashboard')->name('dashboard');
 
-    // ============================================= products
-    Route::resource('products', ProductController::class);
+    // example on manual slug now the space be like %20 and we don't want this 
+    // Route::get('products/show/{product:name}', [ProductController::class, 'show'])->name('products.show');
 
+    Route::get('products/show/{product}', [ProductController::class, 'show'])->name('products.show');
+
+    // ============================================= products
+    Route::resource('products', ProductController::class)->except('show');
 });
 
 //  if the user enter a undifind route 
-Route::fallback(function (){
-    return to_route('home'); 
+Route::fallback(function () {
+    return to_route('home');
 });
 
 // Route::middleware('auth')->group(function () {
