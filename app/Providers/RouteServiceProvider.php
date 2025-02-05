@@ -27,6 +27,10 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+        // register the rate limiter then applay it at the route 
+        RateLimiter::for('watch_limiter', function (Request $request) {
+            return Limit::perMinute(3);
+        });
 
         $this->routes(function () {
             Route::middleware('api')
@@ -36,11 +40,14 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
 
-            Route::middleware('admins')
-                ->group(base_path('routes/web.php'));
+            // Route::middleware('web')
+            //     ->prefix('admins')
+            //     ->group(base_path('routes/web.php'));
 
-            Route::middleware('merchants')
-                ->group(base_path('routes/web.php'));
-            });
+            // Route::middleware('web')
+                // ->prefix('merchants')
+            //     ->group(base_path('routes/web.php'));
+        });
+        // Route::pattern('id','[0-9]+'); example for global route constraint every parameter named id will get this constraint
     }
 }

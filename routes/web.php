@@ -16,11 +16,18 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', HomeController::class);
+Route::get('/', HomeController::class)->name('home');
 
+// applay the rate limiter after register it in the route service provider
+// Route::get('/', HomeController::class)->middleware(['throttle:watch_limiter'])->name('home');
+
+// Example for the route constraints
+Route::get('/users/{name}',HomeController::class)->where('name','[a-z]+'); //it take the latters from a-z in small latter
+Route::get('/users/{id}/{name}', HomeController::class)->where([['name'=>'[a-z]+'],['id'=>'[0-9]+']]);
+Route::get('/users/{id}/{name}', HomeController::class)->whereNumber('id')->whereAlpha('name');
 Route::prefix('dashboard')->group(function () {
 
-    // ==================================== dashboard main page
+    // ==================================== dashboard main page10. 
     Route::view('/', 'dashboard')->name('dashboard');
 
     // ============================================= products
@@ -28,7 +35,10 @@ Route::prefix('dashboard')->group(function () {
 
 });
 
-
+//  if the user enter a undifind route 
+Route::fallback(function (){
+    return to_route('home'); 
+});
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
