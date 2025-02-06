@@ -31,8 +31,11 @@ Route::prefix('dashboard')->group(function () {
     // ==================================== dashboard main page10. 
     Route::view('/', 'dashboard')->name('dashboard');
 
-    // example on manual slug now the space be like %20 and we don't want this 
+    // example on manual slug now the space be like  " %20 " and we don't want this 
     // Route::get('products/show/{product:name}', [ProductController::class, 'show'])->name('products.show');
+
+    // example on the semi atomated slug 
+    // Route::get('products/show/{product:slug}', [ProductController::class,'show'])->name('products.show');
 
     Route::get('products/show/{product}', [ProductController::class, 'show'])->name('products.show');
 

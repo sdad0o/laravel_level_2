@@ -52,8 +52,8 @@ class RouteServiceProvider extends ServiceProvider
         // Route::pattern('id','[0-9]+'); example for global route constraint every parameter named id will get this constraint
         
         // to avoid the 404 erorr for the manual slug
-        Route::bind('product', function (string $value) {
-            return Product::where('name', str_replace('-',' ', $value))->firstOrFail();
-        });
+        // Route::bind('product', function (string $value) {
+        //     return Product::where('name', str_replace('-',' ', $value))->firstOrFail();
+        // });
     }
 }

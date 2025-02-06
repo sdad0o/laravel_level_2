@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -33,6 +34,8 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $productData = $request->validated();
+        // for the semi atomated slug
+        $productData['slug'] = Str::slug($productData['name'], '-');
 
         $product = Product::create($productData);
 

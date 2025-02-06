@@ -9,6 +9,11 @@ class Product extends Model
 {
     use HasFactory;
 
+    // anoter esiar way to use the semi slug 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
     /**
      * The table associated with the model.
      *
