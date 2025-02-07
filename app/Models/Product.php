@@ -4,12 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+// using the fully automated slug 
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Product extends Model
 {
-    use HasFactory;
+    // using the fully automated slug 
+    use HasFactory, HasSlug;
 
-    // anoter esiar way to use the semi slug 
+    // using the fully automated slug 
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
+
+    // anoter esiar way to use the semi slug --- you shold use it with automated
     public function getRouteKeyName()
     {
         return 'slug';
@@ -20,7 +32,7 @@ class Product extends Model
      * @var string
      */
     protected $table = 'products';
-    
+
     /**
      * The primary key associated with the table.
      *
@@ -48,7 +60,7 @@ class Product extends Model
      * @var bool
      */
     public $timestamps = true;
-    
+
     /**
      * The attributes that are mass assignable.
      *

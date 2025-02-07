@@ -35,7 +35,7 @@ class ProductController extends Controller
     {
         $productData = $request->validated();
         // for the semi atomated slug
-        $productData['slug'] = Str::slug($productData['name'], '-');
+        // $productData['slug'] = Str::slug($productData['name'], '-');
 
         $product = Product::create($productData);
 
