@@ -29,7 +29,9 @@ Route::get('/', HomeController::class)->name('home');
 Route::prefix('dashboard')->group(function () {
 
     // ==================================== dashboard main page10. 
-    Route::view('/', 'dashboard')->name('dashboard');
+    
+    // passing parameter to the middleware
+    Route::view('/', 'dashboard')->middleware('test:ahmed')->name('dashboard');
 
     // example on manual slug now the space be like  " %20 " and we don't want this 
     // Route::get('products/show/{product:name}', [ProductController::class, 'show'])->name('products.show');
@@ -49,6 +51,10 @@ Route::fallback(function () {
 });
 
 // Route::middleware('auth')->group(function () {
+
+//   IF YOU WANT SPECIFIC ROUTE DON'T GET A MIDDLEWARE WITHIN GROU JUST USE THIS 
+//     Route::get('/profile', [ProfileController::class, 'edit'])->withoutMiddleware('auth')->name('profile.edit');
+
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
