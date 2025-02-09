@@ -14,8 +14,7 @@ use App\Http\Controllers\ProfileController;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
-
+*/ 
 Route::get('/', HomeController::class)->name('home');
 
 // applay the rate limiter after register it in the route service provider
