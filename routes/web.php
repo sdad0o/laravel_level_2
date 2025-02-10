@@ -25,7 +25,7 @@ Route::get('/', HomeController::class)->name('home');
 // Route::get('/users/{id}/{name}', HomeController::class)->where([['name'=>'[a-z]+'],['id'=>'[0-9]+']]);
 // Route::get('/users/{id}/{name}', HomeController::class)->whereNumber('id')->whereAlpha('name');
 
-Route::prefix('dashboard')->group(function () {
+Route::prefix('dashboard')->middleware('auth')->group(function () {
 
     // ==================================== dashboard main page10. 
     
