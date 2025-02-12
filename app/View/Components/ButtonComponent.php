@@ -11,7 +11,8 @@ class ButtonComponent extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    // here you can get the variable 
+     public function __construct()
     {
         //
     }
