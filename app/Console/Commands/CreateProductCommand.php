@@ -12,7 +12,8 @@ class CreateProductCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'products:create';
+    //                                                    true|fals if exist get the price
+    protected $signature = 'products:create {productName} {--fixedPrice}';
 
     /**
      * The console command description.
@@ -26,11 +27,13 @@ class CreateProductCommand extends Command
      */
     public function handle()
     {
+        $name = $this->argument('productName');
+        $fixedPrice =$this->option('fixedPrice');
         $product = Product::updateOrCreate(
-            ['name'=>'comand product'],
-            ['price'=>300],
+            ['name'=> $name],
+            ['price'=> $fixedPrice ? 300:rand(400,1000)],
             
         );
-        if($product) dump('Product created !');
+        if($product) $this->info('Product created successfully!');
     }
 }
