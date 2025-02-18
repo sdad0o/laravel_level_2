@@ -25,7 +25,8 @@ Route::get('/', HomeController::class)->name('home');
 // Route::get('/users/{id}/{name}', HomeController::class)->where([['name'=>'[a-z]+'],['id'=>'[0-9]+']]);
 // Route::get('/users/{id}/{name}', HomeController::class)->whereNumber('id')->whereAlpha('name');
 
-Route::prefix('dashboard')->group(function () {
+Route::prefix('{locale}/dashboard')->middleware('setLocale')->group(function () {
+    // dd(request()->segment(1));
 
     // ==================================== dashboard main page10. 
     
@@ -42,7 +43,7 @@ Route::prefix('dashboard')->group(function () {
 
     // ============================================= products
     Route::resource('products', ProductController::class)->except('show');
-});
+})->where('locale','[a-z](2)');
 
 //  if the user enter a undifind route 
 Route::fallback(function () {
