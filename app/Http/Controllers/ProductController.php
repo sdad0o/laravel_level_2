@@ -4,10 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Http\Requests\ProductRequest;
+use App\Services\PriceService;
+use App\Traits\PriceTrait;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+    // use PriceTrait; //traite usage
+    // Service usage
+    // protected $priceService;
+    // public function __construct(PriceService $priceService)
+    // {
+    //     $this->priceService = $priceService;
+    // }
     public function index()
     {
         $products = Product::paginate(10);
@@ -36,8 +45,12 @@ class ProductController extends Controller
         $productData = $request->validated();
         // for the semi atomated slug
         // $productData['slug'] = Str::slug($productData['name'], '-');
-
+        // $productData['price_usd'] =$this->convertPriceToUSD($productData['price']);//traite usage
+        // $productData['price_usd'] = $this->priceService->convertPriceToUSD($productData['price']);// Service usage
+        
+        $productData['price_usd'] = convertPriceToUSD($productData['price']);
         $product = Product::create($productData);
+        dd($productData);
 
         return redirect()->route('products.index');
     }

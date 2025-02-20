@@ -34,7 +34,7 @@
                                             {{ $product->name }}
                                         </td>
                                         <td>
-                                            {{ number_format($product->price, 2) }}
+                                            {{ number_format($product->price, 2) }}  {!! priceCurrency('jod') !!} 
                                         </td>
                                         <td>
                                             <div class="d-inline-flex">

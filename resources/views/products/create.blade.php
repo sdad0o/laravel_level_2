@@ -4,7 +4,7 @@
             {{ __('Products') }}
         </h2>
     </x-slot>
-
+    {{-- @dump(convertPriceToUSD(70))  example on using helpers on viwe --}}
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -18,10 +18,10 @@
                                 <x-label for="name" :value="__('Name')" />
 
                                 <x-input id="name" class="block mt-1 w-full" type="text" name="name"
-                                    :value="old('name')"  autofocus />
-                                    @error('name')
+                                    :value="old('name')" autofocus />
+                                @error('name')
                                     <span style="color: red;">{{ $message }}</span>
-                                    @enderror
+                                @enderror
                             </div>
 
                             <!-- Price -->
@@ -29,10 +29,10 @@
                                 <x-label for="price" :value="__('Price')" />
 
                                 <x-input id="price" class="block mt-1 w-full" type="number" step="0.01"
-                                    name="price" :value="old('price')"  />
-                                    @error('price')
+                                    name="price" :value="old('price')" />
+                                @error('price')
                                     <span style="color: red;">{{ $message }}</span>
-                                    @enderror
+                                @enderror
                             </div>
 
                             <div class="flex items-center mt-4">
