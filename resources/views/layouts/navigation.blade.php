@@ -22,12 +22,22 @@
                     </x-nav-link>
                 </div>
                 {{-- Add localizaion switcher --}}
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                 @php
                  $route = Illuminate\Support\Facades\Route::currentRouteName();
                  $lang =request()->segment(1) == 'ar' ? 'en' : 'ar';
                 @endphp
                     <x-nav-link href="{{ route($route, ['locale'=>$lang]) }}">
+                        {{-- {{ request()->segment(1) == 'ar' ? 'EN' : 'AR' }} --}}
+                        {{-- {{ strtoupper($lang) }} --}}
+                    {{-- </x-nav-link>  --}}
+                {{-- </div> --}}
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                @php
+                 $route = Illuminate\Support\Facades\Route::currentRouteName();
+                 $lang =request()->segment(1) == 'ar' ? 'en' : 'ar';
+                @endphp
+                    <x-nav-link href="{{ Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL($lang) }}">
                         {{-- {{ request()->segment(1) == 'ar' ? 'EN' : 'AR' }} --}}
                         {{ strtoupper($lang) }}
                     </x-nav-link> 

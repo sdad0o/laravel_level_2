@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,8 @@ use App\Http\Controllers\ProfileController;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/ 
+*/
+
 Route::get('/', HomeController::class)->name('home');
 
 // applay the rate limiter after register it in the route service provider
@@ -25,11 +27,32 @@ Route::get('/', HomeController::class)->name('home');
 // Route::get('/users/{id}/{name}', HomeController::class)->where([['name'=>'[a-z]+'],['id'=>'[0-9]+']]);
 // Route::get('/users/{id}/{name}', HomeController::class)->whereNumber('id')->whereAlpha('name');
 
-Route::prefix('{locale}/dashboard')->middleware('setLocale')->group(function () {
+// Route::group(
+//     [
+//         'prefix' => LaravelLocalization::setLocale(). '/dashboard',
+//         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
+//     ],
+//     function () {
+//     // dd(request()->segment(1));
+
+//     // ==================================== dashboard main page10. 
+
+//     // passing parameter to the middleware
+//     Route::view('/', 'dashboard')->middleware('test:ahmed')->name('dashboard');
+
+//     Route::get('products/show/{product}', [ProductController::class, 'show'])->name('products.show');
+
+//     // ============================================= products
+//     Route::resource('products', ProductController::class)->except('show');
+// });
+
+// -----------------------Custom way for localization (manual) ------------------------------
+
+Route::prefix('dashboard')->group(function () {
     // dd(request()->segment(1));
 
     // ==================================== dashboard main page10. 
-    
+
     // passing parameter to the middleware
     Route::view('/', 'dashboard')->middleware('test:ahmed')->name('dashboard');
 
@@ -43,7 +66,8 @@ Route::prefix('{locale}/dashboard')->middleware('setLocale')->group(function () 
 
     // ============================================= products
     Route::resource('products', ProductController::class)->except('show');
-})->where('locale','[a-z](2)');
+});
+
 
 //  if the user enter a undifind route 
 Route::fallback(function () {

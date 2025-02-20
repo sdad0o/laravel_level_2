@@ -8,6 +8,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -37,20 +38,24 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('api')
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
-
-            Route::middleware('web')
+            // to apply all middleware and the prefix for localization to all route  
+            Route::middleware(['web', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
+                ->prefix(LaravelLocalization::setLocale())
                 ->group(base_path('routes/web.php'));
+
+            // Route::middleware('web')
+            //     ->group(base_path('routes/web.php'));
 
             // Route::middleware('web')
             //     ->prefix('admins')
             //     ->group(base_path('routes/web.php'));
 
             // Route::middleware('web')
-                // ->prefix('merchants')
+            // ->prefix('merchants')
             //     ->group(base_path('routes/web.php'));
         });
         // Route::pattern('id','[0-9]+'); example for global route constraint every parameter named id will get this constraint
-        
+
         // to avoid the 404 erorr for the manual slug
         // Route::bind('product', function (string $value) {
         //     return Product::where('name', str_replace('-',' ', $value))->firstOrFail();
